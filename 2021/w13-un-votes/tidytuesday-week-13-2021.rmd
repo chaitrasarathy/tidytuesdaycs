@@ -1,7 +1,7 @@
 ---
-title: "steam-games"
+title: "un-votes"
 author: "Chaitra Sarathy"
-date: "19/03/2021"
+date: "24/03/2021"
 output: html_document
 ---
  
@@ -9,52 +9,16 @@ output: html_document
 ```{r}
 library(ggplot2)
 library(tidyverse)
-games <- read.csv(file = "games.csv", header = T, sep = ",")
-tuesdata <- tidytuesdayR::tt_load(2021, week = 12)
-# games1 <- tuesdata$games
-# games1df <- drop_na(games1, any_of(colnames(games1)))
-```
+library(tidytuesdayR )
+``` 
 
 ```{r}
-unique(games$year)
- # [1] 2021   NA 2020 2019 2018 2017 2016 2015 2014 2013 2012
-length(is.na(games$year))
-# [1] 83631
-length(which(is.na(games$year)))
-# [1] 1241
-length(which(is.na(games$gamename)))
-# [1] 0
-length(which(is.na(games$month)))
-# [1] 0
-length(which(is.na(games$avg)))
-# [1] 1241
-length(which(is.na(games$gain)))
-# [1] 2484
-length(which(is.na(games$peak)))
-# [1] 1241
-length(which(is.na(games$avg_peak_perc)))
-
-```
-```{r}
-gamesdf <- drop_na(games, any_of(colnames(games)))
-gamesdf <- gamesdf %>%
-    mutate_at(vars(gamename), function(x){gsub('<.*>', '', x)})
-
+tuesdata <- tidytuesdayR::tt_load('2021-03-23')
+tuesdata <- tidytuesdayR::tt_load(2021, week = 13)
+unvotes <- tuesdata$unvotes
 ```
 
 ```{r}
 
-gamesdf.20.1 <- gamesdf %>% filter(year == 2020 & month %in% "January") %>% arrange(desc(avg))
-aa = gamesdf.20.1[1:10,]
-ggplot(data = aa, mapping = aes(x = gamename, y = avg)) +
-  geom_point()
 ```
 
-
-```{r}
-
-gamesdf$avg_peak_perc <- as.numeric(str_remove(gamesdf$avg_peak_perc, pattern = "%"))
-avgcount <- gamesdf %>% 
-          group_by(gamename, year) %>%
-          summarise(sum_avg = sum(avg))
-```
