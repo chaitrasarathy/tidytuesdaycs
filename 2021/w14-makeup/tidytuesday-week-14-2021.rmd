@@ -1,0 +1,17 @@
+---
+title: "un-votes"
+author: "Chaitra Sarathy"
+date: "29/03/2021"
+output: html_document
+---
+ 
+ 
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(tidytuesdayR )
+``` 
+
+```{r}
+tuesdata <- tidytuesdayR::tt_load(2021, week = 14)
+```
